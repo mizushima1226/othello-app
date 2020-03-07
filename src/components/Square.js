@@ -32,7 +32,7 @@ const Square = props => {
             return;
         }
 
-        var selfColor = state.firstPlayerIsNext ? COLOR_TYPE.BLACK : COLOR_TYPE.WHITE;
+        const selfColor = current.nextPlayerIsBlack ? COLOR_TYPE.BLACK : COLOR_TYPE.WHITE;
         var reversedList = GetReversedList(row, col, squares, selfColor);
         if (reversedList.length === 0) {
             return;
@@ -44,20 +44,26 @@ const Square = props => {
 
         let blackNum = 0;
         let whiteNum = 0;
-        if (selfColor === COLOR_TYPE.BLACK) {
-            blackNum = current.blackNum + reversedList.length;
-            whiteNum = current.whiteNum - reversedList.length + 1;
-        } else if (selfColor === COLOR_TYPE.WHITE) {
-            whiteNum = current.whiteNum + reversedList.length;
-            blackNum = current.blackNum - reversedList.length + 1;
+        switch (selfColor) {
+            case COLOR_TYPE.BLACK:
+                blackNum = current.blackNum + reversedList.length;
+                whiteNum = current.whiteNum - reversedList.length + 1;
+                break;
+            case COLOR_TYPE.WHITE:
+                whiteNum = current.whiteNum + reversedList.length;
+                blackNum = current.blackNum - reversedList.length + 1;
+                break;
+            default:
+                break;
         }
-
+        
         dispatch({
             type: ADD_HISTORY,
             history: history.concat([{
                 squares: squares,
                 blackNum: blackNum,
                 whiteNum: whiteNum,
+                nextPlayerIsBlack: !current.nextPlayerIsBlack
             }])
         })
         dispatch({

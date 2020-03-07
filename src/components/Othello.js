@@ -14,6 +14,7 @@ import reducer from '../reducers/index';
 import Game from './Game';
 
 const Othello = () => {
+
     const squares = [];
     for (let rowNum = 0; rowNum < V_CELL_NUM; rowNum++) {
         squares[rowNum] = Array(H_CELL_NUM).fill('');
@@ -27,11 +28,11 @@ const Othello = () => {
         squares: squares,
         blackNum: 2,
         whiteNum: 2,
+        nextPlayerIsBlack: true,
     }
     
     const initalState = {
         history: [initialHistory],
-        firstPlayerIsNext: true,
         stepNumber: 0,
         gameResult: null
     }

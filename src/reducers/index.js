@@ -7,7 +7,6 @@ import gameResult from './gameResult'
 
 export default combineReducers({
     history,
-    firstPlayerIsNext,
     stepNumber,
     gameResult
 });
