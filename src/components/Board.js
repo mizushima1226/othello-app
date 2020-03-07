@@ -36,17 +36,19 @@ const Board = ({squares}) => {
         );
     }
 
-    return(
-        <>
+    return (
+        <div className="game"> 
+            <div className="game-board">
             {rows.map( (row, index) => {
-                    return (
-                        <div key={index} className="board-row">
-                            {cols.map( (col, index) => renderSquare(row,col,index) )}
-                        </div>
-                    );
-                } 
-            )}
-        </>
+                return (
+                    <div key={index} className="board-row">
+                        {cols.map( (col, index) => renderSquare(row,col,index) )}
+                    </div>
+                );
+            })}
+            </div>
+        </div>
+            
     )
 }
 
