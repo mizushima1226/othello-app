@@ -1,3 +1,10 @@
+import {
+    BLACK,
+    WHITE,
+    DRAW,
+    CELL_NUM
+} from '../utils/Const'
+
 const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], 
                     [1, 1], [1, -1], [-1, -1], [-1, 1]];
 
@@ -19,8 +26,8 @@ class Coordinate {
         return [this.x, this.y];
     }
 
-    IsNull() {
-        if (this.squares[this.x][this.y] === null) {
+    IsNullOrEmpty() {
+        if (this.squares[this.x][this.y] === null || this.squares[this.x][this.y] === '') {
             return true;
         } else {
             return false;
@@ -42,7 +49,7 @@ export function GetReversedList(row, col, squares, selfColor) {
         var target = new Coordinate(row, col, squares);
         var reverseList = [];
         target = target.next(direction);
-        if (target.IsNull() || target.IsSameColor(selfColor)) {
+        if (target.IsNullOrEmpty() || target.IsSameColor(selfColor)) {
             return;
         } else {
             reverseList.push(target);
@@ -68,4 +75,23 @@ export function GetReversedList(row, col, squares, selfColor) {
     }
     return results;
 
+}
+
+export const CheckWinner = (blackNum,whiteNum) => {
+    if (blackNum + whiteNum == CELL_NUM) {
+        if (blackNum > whiteNum) {
+            return BLACK;
+        } else if (blackNum < whiteNum) {
+            return WHITE
+        } else {
+            return DRAW;
+        }
+    }
+
+    if (blackNum === 0) {
+        return WHITE;
+    }
+    if (whiteNum === 0) {
+        return BLACK;
+    }
 }
