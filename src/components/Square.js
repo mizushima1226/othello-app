@@ -7,8 +7,8 @@ import {
 } from '../constants'
 
 import {
-    ADD_HISTORY,
-    ADVANCE_STEP_NUMBER,
+    UPDATE_HISTORY,
+    ADD_STEP_NUMBER,
     JUDGE_THE_GAME
 } from '../actions/index'
 
@@ -57,7 +57,7 @@ const Square = props => {
         }
         
         dispatch({
-            type: ADD_HISTORY,
+            type: UPDATE_HISTORY,
             history: history.concat([{
                 squares: squares,
                 blackNum: blackNum,
@@ -65,7 +65,7 @@ const Square = props => {
                 nextPlayerIsBlack: !current.nextPlayerIsBlack
             }])
         })
-        dispatch({ type: ADVANCE_STEP_NUMBER })
+        dispatch({ type: ADD_STEP_NUMBER })
         dispatch({ type: JUDGE_THE_GAME })
         
     }

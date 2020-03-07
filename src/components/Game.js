@@ -5,59 +5,33 @@ import Board from './Board'
 import OthelloContext from '../contexts/OthelloContext'
 
 import {
-    COLOR_TYPE,
-    H_CELL_NUM,
-    V_CELL_NUM,
-} from '../constants'
-
-import {
-    ADD_HISTORY,
-    ADVANCE_STEP_NUMBER,
+    UPDATE_HISTORY,
+    ADD_STEP_NUMBER,
+    SUBTRACT_STEP_NUMBER,
+    RESET_STEP_NUMBER,
+    RESET_HISTORY
 } from '../actions/index'
 
 const Game = () => {
-    const { state, dispatch } = useContext(OthelloContext)
+    const { state, dispatch } = useContext(OthelloContext);
+
     const HistoryBack = () => {
-        if (state.stepNumber === 0) {
-            return;
+        if (state.stepNumber !== 0) {
+            dispatch({ type: SUBTRACT_STEP_NUMBER });
         }
-        this.setState({
-            stepNumber: state.stepNumber - 1,
-            firstIsNext: !state.firstIsNext,
-        });
     }
 
     const HistoryMove = () => {
-        if (state.history.length <= state.stepNumber+1) {
-            return;
+        if (state.history.length > state.stepNumber+1) {
+            dispatch({ type: ADD_STEP_NUMBER });
         }
-        // this.setState({
-        //     stepNumber: this.state.stepNumber + 1,
-        //     firstIsNext: !this.state.firstIsNext,
-        // });
     }
 
     const GameReset = () => {
-        if (!window.confirm("リセットしますか？")) {
-            return;
+        if (window.confirm("リセットしますか？")) {
+            dispatch({ type: RESET_HISTORY });
+            dispatch({ type: RESET_STEP_NUMBER });
         }
-        var squares = [];
-        for (var rowNum = 0; rowNum < V_CELL_NUM; rowNum++) {
-            squares[rowNum] = Array(H_CELL_NUM).fill(null);
-        }
-        squares[4][5] = COLOR_TYPE.BLACK;
-        squares[5][4] = COLOR_TYPE.BLACK;
-        squares[4][4] = COLOR_TYPE.WHITE;
-        squares[5][5] = COLOR_TYPE.WHITE;
-        this.setState({
-            history: [{
-                squares: squares,
-                blackNum: 2,
-                whiteNum: 2,
-            }],
-            firstIsNext: true,
-            stepNumber: 0,
-        });
     }
 
     const Pass = () => {
@@ -68,7 +42,7 @@ const Game = () => {
             squares.push(square.slice());
         });
         dispatch({
-            type: ADD_HISTORY,
+            type: UPDATE_HISTORY,
             history: history.concat({
                 squares: squares,
                 blackNum: current.blackNum,
@@ -76,9 +50,7 @@ const Game = () => {
                 nextPlayerIsBlack: !current.nextPlayerIsBlack
             })
         })
-
-        dispatch({ type: ADVANCE_STEP_NUMBER })
-
+        dispatch({ type: ADD_STEP_NUMBER })
     }
 
     const history = state.history;

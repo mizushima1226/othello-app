@@ -1,17 +1,17 @@
 import {
-    ADD_HISTORY,
-    ADVANCE_HISTORY,
-    REVERT_HISTORY
+    UPDATE_HISTORY,
+    RESET_HISTORY,
 } from '../actions/index';
+
+import { initHistory } from '../utils/othelloUtils'
 
 const history = (state = [], action) => {
     switch(action.type){
-        case ADD_HISTORY:
+        case UPDATE_HISTORY:
+            console.log(action.history)
             return action.history;
-        case ADVANCE_HISTORY:
-            return state;
-        case REVERT_HISTORY:
-            return state;
+        case RESET_HISTORY:
+            return initHistory();
         default:
             return state;
     }

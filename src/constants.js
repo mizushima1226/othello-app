@@ -11,3 +11,6 @@ export const COLOR_TYPE = {
 export const DIRECTIONS =
     [[0, 1], [0, -1], [1, 0], [-1, 0], 
         [1, 1], [1, -1], [-1, -1], [-1, 1]];
+
+
+

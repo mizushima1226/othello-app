@@ -2,13 +2,15 @@ import {
     COLOR_TYPE,
     DRAW,
     CELL_NUM,
-    DIRECTIONS
+    DIRECTIONS,
+    H_CELL_NUM,
+    V_CELL_NUM
 } from '../constants'
 
 import Coordinate from '../js/Coordinate'
 
 
-export function GetReversedList(row, col, squares, selfColor) {
+export const GetReversedList = (row, col, squares, selfColor) => {
     var results = [];
     DIRECTIONS.forEach(direction => {
         var target = new Coordinate(row, col, squares);
@@ -61,4 +63,30 @@ export const CheckWinner = (blackNum,whiteNum) => {
     }
 
     return null;
+}
+
+export const initHistory = () => {
+    const squares = [];
+    for (let rowNum = 0; rowNum < V_CELL_NUM; rowNum++) {
+        squares[rowNum] = Array(H_CELL_NUM).fill('');
+    }
+    squares[4][5] = COLOR_TYPE.BLACK;
+    squares[5][4] = COLOR_TYPE.BLACK;
+    squares[4][4] = COLOR_TYPE.WHITE;
+    squares[5][5] = COLOR_TYPE.WHITE;
+
+    return [{
+        squares: squares,
+        blackNum: 2,
+        whiteNum: 2,
+        nextPlayerIsBlack: true,
+    }]
+}
+
+export const initState = () => {
+    return {
+        history: initHistory(),
+        stepNumber: 0,
+        gameResult: null
+    }
 }
