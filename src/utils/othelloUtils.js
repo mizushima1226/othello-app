@@ -78,7 +78,7 @@ export function GetReversedList(row, col, squares, selfColor) {
 }
 
 export const CheckWinner = (blackNum,whiteNum) => {
-    if (blackNum + whiteNum == CELL_NUM) {
+    if (blackNum*1 + whiteNum*1 === CELL_NUM) {
         if (blackNum > whiteNum) {
             return BLACK;
         } else if (blackNum < whiteNum) {

@@ -22,11 +22,12 @@ const Board = ({squares, onClick}) => {
         return squares[row][col] === WHITE
     }
 
-    const renderSquare = (row,col) => {
+    const renderSquare = (row,col,index) => {
         const cssClass = 
             IsBlack(row,col) ? "circle bg-black" : IsWhite(row,col) ? "circle bg-white": ""
         return (
             <Square
+                key={index}
                 onClick={() => onClick(row,col)}
                 cssClass={cssClass}
             />
@@ -35,10 +36,10 @@ const Board = ({squares, onClick}) => {
 
     return(
         <>
-            {rows.map( row => {
+            {rows.map( (row, index) => {
                     return (
-                        <div className="board-row">
-                            {cols.map( col => renderSquare(row,col) )}
+                        <div key={index} className="board-row">
+                            {cols.map( (col, index) => renderSquare(row,col,index) )}
                         </div>
                     );
                 } 
