@@ -10,8 +10,13 @@ import {
     V_CELL_NUM,
 } from '../constants'
 
+import {
+    ADD_HISTORY,
+    ADVANCE_STEP_NUMBER,
+} from '../actions/index'
+
 const Game = () => {
-    const { state } = useContext(OthelloContext)
+    const { state, dispatch } = useContext(OthelloContext)
     const HistoryBack = () => {
         if (state.stepNumber === 0) {
             return;
@@ -62,16 +67,18 @@ const Game = () => {
         current.squares.forEach(square => {
             squares.push(square.slice());
         });
-
-        this.setState({
-            history: history.concat([{
+        dispatch({
+            type: ADD_HISTORY,
+            history: history.concat({
                 squares: squares,
                 blackNum: current.blackNum,
                 whiteNum: current.whiteNum,
-            }]),
-            stepNumber: history.length,
-            firstIsNext: !state.firstIsNext,
-        });
+                nextPlayerIsBlack: !current.nextPlayerIsBlack
+            })
+        })
+
+        dispatch({ type: ADVANCE_STEP_NUMBER })
+
     }
 
     const history = state.history;
@@ -80,7 +87,6 @@ const Game = () => {
     if (winner) {
         alert("winner:" + winner);
     }
-
     return (
         <div className="mainContent">
             <div className="m-2 d-flex justify-content-center">
@@ -90,10 +96,10 @@ const Game = () => {
                     <div className="ml-2 circle bg-white"></div>
                     <div className="mx-2 font-large text-white">{current.whiteNum}</div>
                 </div>
-                <button className="ml-3 btn btn-warning" onClick={()=>HistoryBack}>戻る</button>
-                <button className="ml-3 btn btn-warning" onClick={() => HistoryMove}>進む</button>
-                <button className="ml-3 btn btn-secondary" onClick={() => Pass}>パス</button>
-                <button className="ml-3 btn btn-danger" onClick={()=>GameReset}>リセット</button>
+                <button className="ml-3 btn btn-warning" onClick={HistoryBack}>戻る</button>
+                <button className="ml-3 btn btn-warning" onClick={HistoryMove}>進む</button>
+                <button className="ml-3 btn btn-secondary" onClick={Pass}>パス</button>
+                <button className="ml-3 btn btn-danger" onClick={GameReset}>リセット</button>
             </div>
             
             <div className="game"> 

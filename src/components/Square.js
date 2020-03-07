@@ -9,7 +9,6 @@ import {
 import {
     ADD_HISTORY,
     ADVANCE_STEP_NUMBER,
-    CHANGE_ORDER,
     JUDGE_THE_GAME
 } from '../actions/index'
 
@@ -66,15 +65,9 @@ const Square = props => {
                 nextPlayerIsBlack: !current.nextPlayerIsBlack
             }])
         })
-        dispatch({
-            type: ADVANCE_STEP_NUMBER
-        })
-        dispatch({
-            type: CHANGE_ORDER
-        })
-        dispatch({
-            type: JUDGE_THE_GAME
-        })
+        dispatch({ type: ADVANCE_STEP_NUMBER })
+        dispatch({ type: JUDGE_THE_GAME })
+        
     }
     return(
         <button className = "square" onClick = {handleClick} >
