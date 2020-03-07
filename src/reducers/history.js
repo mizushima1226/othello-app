@@ -7,7 +7,7 @@ import {
 const history = (state = [], action) => {
     switch(action.type){
         case ADD_HISTORY:
-            return state;
+            return action.history;
         case ADVANCE_HISTORY:
             return state;
         case REVERT_HISTORY:

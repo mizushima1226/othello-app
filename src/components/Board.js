@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {
-    BLACK,
-    WHITE
-} from '../utils/Const';
+    COLOR_TYPE
+} from '../constants';
 
 import Square from './Square';
 
-const Board = ({squares, onClick}) => {
+const Board = ({squares}) => {
     const rows = [];
     const cols = [];
     for(let num = 1; num <= 8; num++){
@@ -16,20 +15,23 @@ const Board = ({squares, onClick}) => {
     }
 
     const IsBlack = (row,col) => {
-        return squares[row][col] === BLACK
+        return squares[row][col] === COLOR_TYPE.BLACK
     }
     const IsWhite = (row,col) => {
-        return squares[row][col] === WHITE
+        return squares[row][col] === COLOR_TYPE.WHITE
     }
 
     const renderSquare = (row,col,index) => {
-        const cssClass = 
-            IsBlack(row,col) ? "circle bg-black" : IsWhite(row,col) ? "circle bg-white": ""
+        // const colorType = 
+        //     IsBlack(row,col) ? "circle bg-black" : IsWhite(row,col) ? "circle bg-white": ""
+        let colorType = 
+            IsBlack(row,col) ? COLOR_TYPE.BLACK : IsWhite(row,col) ? COLOR_TYPE.WHITE : ""
         return (
             <Square
                 key={index}
-                onClick={() => onClick(row,col)}
-                cssClass={cssClass}
+                row={row}
+                col={col}
+                colorType={colorType}
             />
         );
     }

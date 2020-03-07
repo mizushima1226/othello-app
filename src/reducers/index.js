@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
 import history from './history';
-import player1IsNext from './player1IsNext';
+import firstPlayerIsNext from './firstPlayerIsNext';
 import stepNumber from './stepNumber'
 import gameResult from './gameResult'
 
-export default combineReducers(
+export default combineReducers({
     history,
-    player1IsNext,
+    firstPlayerIsNext,
     stepNumber,
     gameResult
-);
+});

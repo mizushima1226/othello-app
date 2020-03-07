@@ -1,9 +1,8 @@
 import {
-    BLACK,
-    WHITE,
+    COLOR_TYPE,
     DRAW,
     CELL_NUM
-} from '../utils/Const'
+} from '../constants'
 
 const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], 
                     [1, 1], [1, -1], [-1, -1], [-1, 1]];
@@ -57,7 +56,7 @@ export function GetReversedList(row, col, squares, selfColor) {
 
         while (1) {
             target = target.next(direction);
-            if (target.IsNull()) {
+            if (target.IsNullOrEmpty()) {
                 reverseList = [];
                 break;
             } else if (target.IsSameColor(selfColor)) {
@@ -80,18 +79,20 @@ export function GetReversedList(row, col, squares, selfColor) {
 export const CheckWinner = (blackNum,whiteNum) => {
     if (blackNum*1 + whiteNum*1 === CELL_NUM) {
         if (blackNum > whiteNum) {
-            return BLACK;
+            return COLOR_TYPE.BLACK;
         } else if (blackNum < whiteNum) {
-            return WHITE
+            return COLOR_TYPE.WHITE
         } else {
             return DRAW;
         }
     }
 
     if (blackNum === 0) {
-        return WHITE;
+        return COLOR_TYPE.WHITE;
     }
     if (whiteNum === 0) {
-        return BLACK;
+        return COLOR_TYPE.BLACK;
     }
+
+    return null;
 }
