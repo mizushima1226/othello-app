@@ -1,10 +1,9 @@
 import React from 'react';
+import Othello from './Othello';
 
 function App() {
   return (
-    <div className="App">
-      <h4>Hello, React!</h4>
-    </div>
+    <Othello />
   );
 }
 
