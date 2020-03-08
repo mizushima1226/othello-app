@@ -7,7 +7,8 @@ import {
     ADD_STEP_NUMBER,
     SUBTRACT_STEP_NUMBER,
     RESET_STEP_NUMBER,
-    RESET_HISTORY
+    RESET_HISTORY,
+    RESET_RESULT
 } from '../actions/index'
 
 const ToolButtons = () => {
@@ -29,6 +30,7 @@ const ToolButtons = () => {
         if (window.confirm("リセットしますか？")) {
             dispatch({ type: RESET_HISTORY });
             dispatch({ type: RESET_STEP_NUMBER });
+            dispatch({ type: RESET_RESULT });
         }
     }
 
@@ -51,11 +53,13 @@ const ToolButtons = () => {
         dispatch({ type: ADD_STEP_NUMBER })
     }
 
+    const isGameSet = state.gameResult != null;
+
     return (
         <>
-            <button className="ml-3 btn btn-warning" onClick={HistoryBack}>戻る</button>
-            <button className="ml-3 btn btn-warning" onClick={HistoryMove}>進む</button>
-            <button className="ml-3 btn btn-secondary" onClick={Pass}>パス</button>
+            <button className="ml-3 btn btn-warning" disabled={isGameSet} onClick={HistoryBack}>戻る</button>
+            <button className="ml-3 btn btn-warning" disabled={isGameSet} onClick={HistoryMove}>進む</button>
+            <button className="ml-3 btn btn-secondary" disabled={isGameSet} onClick={Pass}>パス</button>
             <button className="ml-3 btn btn-danger" onClick={GameReset}>リセット</button>
         </>
     )

@@ -22,10 +22,9 @@ const Board = ({squares}) => {
     }
 
     const renderSquare = (row,col,index) => {
-        // const colorType = 
-        //     IsBlack(row,col) ? "circle bg-black" : IsWhite(row,col) ? "circle bg-white": ""
         let colorType = 
-            IsBlack(row,col) ? COLOR_TYPE.BLACK : IsWhite(row,col) ? COLOR_TYPE.WHITE : ""
+            IsBlack(row, col) ? COLOR_TYPE.BLACK :
+                IsWhite(row, col) ? COLOR_TYPE.WHITE : ""
         return (
             <Square
                 key={index}
