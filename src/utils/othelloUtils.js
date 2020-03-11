@@ -1,48 +1,22 @@
-const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], 
-                    [1, 1], [1, -1], [-1, -1], [-1, 1]];
+import {
+    COLOR_TYPE,
+    DRAW,
+    CELL_NUM,
+    DIRECTIONS,
+    H_CELL_NUM,
+    V_CELL_NUM
+} from '../constants'
 
-class Coordinate {
+import Coordinate from '../js/Coordinate'
 
-    constructor(row, col, squares) {
-        this.x = row;
-        this.y = col;
-        this.squares = squares;
-    }
 
-    next(p) {
-        var x = this.x + p[0];
-        var y = this.y + p[1];
-        return new Coordinate(x, y, this.squares);
-    }
-
-    getCoordinate() {
-        return [this.x, this.y];
-    }
-
-    IsNull() {
-        if (this.squares[this.x][this.y] === null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    IsSameColor(selfColor) {
-        if (this.squares[this.x][this.y] === selfColor) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-export function GetReversedList(row, col, squares, selfColor) {
+export const GetReversedList = (row, col, squares, selfColor) => {
     var results = [];
-    directions.forEach(direction => {
+    DIRECTIONS.forEach(direction => {
         var target = new Coordinate(row, col, squares);
         var reverseList = [];
         target = target.next(direction);
-        if (target.IsNull() || target.IsSameColor(selfColor)) {
+        if (target.IsNullOrEmpty() || target.IsSameColor(selfColor)) {
             return;
         } else {
             reverseList.push(target);
@@ -50,7 +24,7 @@ export function GetReversedList(row, col, squares, selfColor) {
 
         while (1) {
             target = target.next(direction);
-            if (target.IsNull()) {
+            if (target.IsNullOrEmpty()) {
                 reverseList = [];
                 break;
             } else if (target.IsSameColor(selfColor)) {
@@ -68,4 +42,50 @@ export function GetReversedList(row, col, squares, selfColor) {
     }
     return results;
 
+}
+
+export const CheckWinner = (blackNum, whiteNum) => {
+    if (blackNum*1 + whiteNum*1 === CELL_NUM) {
+        if (blackNum > whiteNum) {
+            return COLOR_TYPE.BLACK;
+        } else if (blackNum < whiteNum) {
+            return COLOR_TYPE.WHITE
+        } else {
+            return DRAW;
+        }
+    }
+
+    if (blackNum === 0) {
+        return COLOR_TYPE.WHITE;
+    }
+    if (whiteNum === 0) {
+        return COLOR_TYPE.BLACK;
+    }
+    return null;
+}
+
+export const initHistory = () => {
+    const squares = [];
+    for (let rowNum = 0; rowNum < V_CELL_NUM; rowNum++) {
+        squares[rowNum] = Array(H_CELL_NUM).fill('');
+    }
+    squares[4][5] = COLOR_TYPE.BLACK;
+    squares[5][4] = COLOR_TYPE.BLACK;
+    squares[4][4] = COLOR_TYPE.WHITE;
+    squares[5][5] = COLOR_TYPE.WHITE;
+
+    return [{
+        squares: squares,
+        blackNum: 2,
+        whiteNum: 2,
+        nextPlayerIsBlack: true,
+    }]
+}
+
+export const initState = () => {
+    return {
+        history: initHistory(),
+        stepNumber: 0,
+        gameResult: null
+    }
 }
