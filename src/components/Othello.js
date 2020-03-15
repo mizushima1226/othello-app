@@ -12,9 +12,11 @@ const Othello = () => {
     const [state, dispatch] = useReducer(reducer, initState());
 
     return (
-        <OthelloContext.Provider value={{state, dispatch}}>
-            <h1>Othello</h1>
-            <Game />
+        <OthelloContext.Provider value={{ state, dispatch }}>
+            <div className='container center'>
+                <h1>Othello</h1>
+                <Game />
+            </div>
         </OthelloContext.Provider>
     );
 }

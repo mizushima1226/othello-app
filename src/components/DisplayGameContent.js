@@ -10,9 +10,19 @@ const DisplayGameContent = () => {
     return (
         <div className="counter bg-primary d-flex justify-content-center align-items-center">
             <div className="ml-2 circle bg-black"></div>
-            <div className="ml-2 font-large">{current.blackNum}</div>
+            <div className="ml-2 font-large">
+                {current.nextPlayerIsBlack ?
+                    <span className='text-danger'>{current.blackNum}</span> :
+                    <span className='text-body'>{current.blackNum}</span>
+                }
+            </div>
             <div className="ml-2 circle bg-white"></div>
-            <div className="mx-2 font-large text-white">{current.whiteNum}</div>
+            <div className="mx-2 font-large">
+                {current.nextPlayerIsBlack ?
+                    <span className='text-white'>{current.whiteNum}</span> :
+                    <span className='text-danger'>{current.whiteNum}</span>
+                }
+            </div>
         </div>
     );
     

@@ -6,12 +6,7 @@ body {
     ol, ul {
     padding-left: 30px;
     }
-    
-    .mainContent{
-        width: 80%;
-        margin: 0 auto;
-    }
-    
+
     .board-row:after {
     clear: both;
     content: "";
@@ -23,19 +18,17 @@ body {
     }
     
     .square {
-    background: #fff;
-    border: 2px solid #000;
-    float: left;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 60px;
-    height: 60px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 60px;
-    background-color: #115511;
+        background: #fff;
+        border: 2px solid #000;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 60px;
+        height: 60px;
+        margin-right: -1px;
+        margin-top: -1px;
+        padding: 4px;
+        width: 60px;
+        background-color: #115511;
     }
     
     .square:focus {
@@ -58,29 +51,23 @@ body {
     }
     
     .kbd-navigation .square:focus {
-    background: #ddd;
-    }
-    
-    .game {
-    display: flex;
-    flex-direction: row;
+        background: #ddd;
     }
     
     .game-info {
-    margin-left: 20px;
+        margin-left: 20px;
     }
     
-    .game-board{
-        margin: 0 auto;
-        border: 20px solid #b8860b;
-    }
     
     .font-large{
         font-size: 35px;
     }
     
     .counter{
-        
         border-radius: 5px;
         background-color: red;
+    }
+
+    .center{
+        text-align: center;
     }
